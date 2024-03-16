@@ -2,69 +2,52 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Install Tailwindcss
 
-In the project directory, you can run:
+- various elements from :
+  [the tailwindcss site](https://tailwindcss.com/docs/guides/create-react-app)
 
-### `npm start`
+## Install daisyUI
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+https://daisyui.com/docs/install/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+plugins: [require('daisyui')],
 
-### `npm test`
+## Cleanup installation files
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Cleanout the contents of the <div></div> in App.js
+2. Test a Tailwind class in place of the className in the div
+<div className="bg-purple-500">
+  <h1 className="text-xl">Hello World!</h1>
+</div>
 
-### `npm run build`
+3. Test a DaisyUI class
+<div className="bg-purple-500">
+  <h1 className="text-xl">Hello World!</h1>
+  <button className="btn">Click</button>
+</div>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Clean up all the unncessary code if everything is working
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- delete in App.js
+  - all classNames
+  - and the <h1></h1>
+  - and the <button></button>
+  - all imports
+  - keep only index.css and index.js and App.js
+  - get rid of reportWebVitals import and its function in index.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ready to go!
 
-### `npm run eject`
+## Daisy Themes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Select themes in the Theme menu item of daisyUI and activate it as suggested in:
+  https://daisyui.com/docs/themes/
+- insert into index.html as a className and add an export to tailwind.config
+module.exports = {
+//...
+daisyui: {
+themes: ["light", "dark", "cupcake"],
+},
+}
+<html data-theme="cupcake"></html>
