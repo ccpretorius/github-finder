@@ -51,3 +51,4 @@ themes: ["light", "dark", "cupcake"],
 },
 }
 <html data-theme="cupcake"></html>
+# github-finder
