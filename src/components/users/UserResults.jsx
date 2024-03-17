@@ -1,3 +1,4 @@
+import Spinner from "../layout/Spinner";
 import { useEffect, useState } from "react";
 
 function UserResults() {
@@ -29,7 +30,7 @@ function UserResults() {
       </div>
     );
   } else {
-    return <h3>Loading...</h3>;
+    return <Spinner />;
   }
 }
 

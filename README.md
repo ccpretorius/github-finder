@@ -184,3 +184,6 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 - With this just create a load state as well
 - when the data returns use it to update the user state, which you can then reflect in the return statement with a list
 - Set a check for your loading as well to show "Loading..." while it is waiting to load and move your return code inside this if statement
+- Section 9: Video 50
+
+### SPINNER
