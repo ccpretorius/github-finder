@@ -146,3 +146,41 @@ https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest
 - RESTART SERVER
 - To test it use this anywhere in the site:
   {process.env.REACT_APP_GITHUB_TOKEN}
+
+### GET request
+
+- Place your GET inside useEffect because you want to have the GET run on rendering of the page
+- There is no dependancies becaue we want the function to run only once when the component loads
+- Since we are going to use async await you cannot create the GET function inside the useEffect. You need to create the function outside useEffect and then call it inside useEffect
+- We want the user results in the UserResults component so let's do the GET request there
+- We will be using env variables so the arguments of the fetch function should be in backward tags ``. 
+fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
+- To pass the token it needs to be included as a second argument by way of the Authorisation Header
+  const fetchUseers = async () => {
+  const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
+  headers: {
+  Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
+  },
+  });
+  };
+
+  - Get yuor data back and convert it to a javascript object with the json() method
+    const fetchUseers = async () => {
+    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
+    headers: {
+    Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+    },
+    });
+    const data = await response.json();
+    console.log(data);
+    };
+
+  return <div>USER RESULTS</div>;
+  }
+
+### Loading STATE
+
+- The GET result should be updating state that will be reflected inside the return result every time the page loads
+- With this just create a load state as well
+- when the data returns use it to update the user state, which you can then reflect in the return statement with a list
+- Set a check for your loading as well to show "Loading..." while it is waiting to load and move your return code inside this if statement
