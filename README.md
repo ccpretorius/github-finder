@@ -129,3 +129,20 @@ text-neutral-content: This DaisyUI class sets the text color to an appropriate c
 
 container defines the maximum width of your content and ensures it doesn't stretch too wide on large screens. It also ensures that the content area can adjust its width responsively based on the viewport size.
 mx-auto ensures that this container is centered horizontally within its parent element (in this case, the <nav>).
+
+## GITHUB REST API
+
+https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28
+
+- One can increase http request rates by going to settings in your profile and then developer settings and personel access tokens
+- You can paste your token into the Beaarer token type under Authorisation to have increased rate limits
+- Create an environment variable which is a variable that can be used anywhere inside the application
+- create .env inside your root
+  REACT_APP_GITHUB_URL = "https://api.github.com"
+  REACT_APP_GITHUB_TOKEN = "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"
+- The REACT_APP part is compulsory. The rest of the name is up to you
+- if you are happy with the default rate limtes then you dont need to store the api varible inside your environment
+- the url is not necessary as it is unlikely to change
+- RESTART SERVER
+- To test it use this anywhere in the site:
+  {process.env.REACT_APP_GITHUB_TOKEN}
