@@ -1,5 +1,6 @@
 import Spinner from "../layout/Spinner";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import UserItem from "./UserItem";
 
 function UserResults() {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,15 @@ function UserResults() {
         Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
       },
     });
+    console.log(response);
+    if (response.ok) {
+      // Proceed to log and set state
+    } else {
+      console.error("Error fetching data:", response.statusText);
+    }
+
     const data = await response.json();
+    console.log("Fetched data:", data);
 
     setUsers(data);
     setLoading(false);
@@ -25,7 +34,10 @@ function UserResults() {
     return (
       <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
         {users.map((user) => (
-          <h3>{user.login}</h3>
+          <div key={user.id}>
+            <h3>{user.login}</h3>
+            {user.avatar_url ? <UserItem user={user} /> : <div>No Avatar Available</div>}
+          </div>
         ))}
       </div>
     );

@@ -52,6 +52,9 @@ themes: ["light", "dark", "cupcake"],
 }
 <html data-theme="cupcake"></html>
 
+<<<<html lang="en" data-theme="dark">>>>
+Dark theme is what we have for now.
+
 # github-finder
 
 ## Create a Navbar
@@ -147,7 +150,9 @@ https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest
 - To test it use this anywhere in the site:
   {process.env.REACT_APP_GITHUB_TOKEN}
 
-### GET request
+## SETTING UP FUNCTIONALITY
+
+### HTTP GET REQUEST TO GET THE USERS
 
 - Place your GET inside useEffect because you want to have the GET run on rendering of the page
 - There is no dependancies becaue we want the function to run only once when the component loads
@@ -178,7 +183,7 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
   return <div>USER RESULTS</div>;
   }
 
-### Loading STATE
+### LOADING STATE WITH THE USERS
 
 - The GET result should be updating state that will be reflected inside the return result every time the page loads
 - With this just create a load state as well
@@ -186,4 +191,6 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 - Set a check for your loading as well to show "Loading..." while it is waiting to load and move your return code inside this if statement
 - Section 9: Video 50
 
-### SPINNER
+### ADD A SPINNER
+
+### ADD A USERCOMPONENT TO REFLECT EACH USER
