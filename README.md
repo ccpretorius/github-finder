@@ -194,3 +194,16 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 ### ADD A SPINNER
 
 ### ADD A USERCOMPONENT TO REFLECT EACH USER
+
+### CREATE A CONTEXT PROVIDER
+
+1. First create your context folder where you can have different context providers and then a subfolder for each context you want to provide
+2. Create a Cotext file for your first context provider. In this case it is GithubContext.js
+3. You need to import createContext and then initiate your provider with it. Make sure it is exported.
+4. Create your GithubContext.Provider and add the value object to it and export it
+5. We are going to replace state mostly with Reducers, but to start just copy your state variables over to the Githubcontext file
+6. Copy over your GET request
+7. Add your provider to the file and export it
+8. Now wrap the components that you want to make use of this context. This would be inside our App.jsx file
+9. You need to import GithubProvider. Now you should have access to the data in the context
+10.
