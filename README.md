@@ -207,3 +207,11 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 8. Now wrap the components that you want to make use of this context. This would be inside our App.jsx file
 9. You need to import GithubProvider. Now you should have access to the data in the context
 10.
+
+### CREATE THE REDUCER
+
+### CLEANING UP TO SET THE SEARCH FUNCTION
+
+1. The fetchUsers function was only a placeholder for the search function. So comment this out now
+1. Also set the loading in the initial state to true - this would now render a spinner if there is not FetchUsers function
+1. So you need to
