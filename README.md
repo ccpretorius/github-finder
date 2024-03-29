@@ -224,3 +224,84 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 4. Add the state for the form inputs
 5. Add the tow-way binding for value={text} and onChange={handleChange} and create the hancleChange function that sets the state with setText(e.target.value)
 6. Add the onSubmit functionality in your <form onSubmit={handleSubmit}></form> and create the handleSubmit function with basic validation
+
+### SEARCH FUNCTIONALITY
+
+1. Establish the structure of your endpoints so you can add a search parameter
+
+- http://api.github.com/search/users?q=brad
+- Replace the existing illustrative fetchUsers with searchUsers()
+
+  - change function name
+  - change the endpoint
+  - create the params to feed your search and take in "text"
+
+    const searchUsers = async (text) => {
+    setLoading();
+
+    const params = new URLSearchParams({
+    q: text,
+    });
+
+    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
+    headers: {
+    Authorization: `token ${GITHUB_TOKEN}`,
+    },
+    });
+
+    //const data = await response.json();
+    const { items } = await response.json();
+
+    dispatch({
+    type: "GET_USERS",
+    payload: items,
+    });
+    };
+
+  - Add { searchUsers } to UserSearch
+  - Why use new URLSearchParams()
+
+Using const params = { q: text }; directly in the context of building query strings for URLs is not inherently wrong, but it does not directly serve the purpose of easily appending parameters to a URL string. Here's a breakdown of why new URLSearchParams() is preferred in this context, especially for making API requests or dealing with URLs in general:
+
+URL Encoding
+URLSearchParams automatically handles URL encoding for the parameters. This means that special characters, spaces, and other entities that need to be encoded in URL parameters are correctly processed. For instance, if text includes spaces or symbols like &, URLSearchParams ensures these are properly encoded to %20, %26, etc., so that the URL remains valid.
+
+Query String Building
+URLSearchParams provides a convenient and intuitive API for building query strings. You can easily append multiple parameters, iterate over them, or even convert the entire set of parameters into a string suitable for URL queries. This abstraction saves you the manual work of concatenating strings and dealing with edge cases like the first parameter starting with a ? and subsequent parameters being appended with &.
+
+Error Prone Manual Concatenation
+If you were to manually build the query string using an object like const params = { q: text };, you'd need to iterate over the object's keys and values, ensure proper encoding, and concatenate them correctly into a query string. This process is error-prone and requires additional boilerplate code.
+
+Example Illustration
+Using an Object:
+
+javascript
+const params = { q: text };
+let queryString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+const response = await fetch(`${GITHUB_URL}/search/users?${queryString}`, { ... });
+Using URLSearchParams:
+
+javascript
+const params = new URLSearchParams({ q: text });
+const response = await fetch(`${GITHUB_URL}/search/users?${params}`, { ... });
+As seen in the examples, URLSearchParams simplifies the process significantly. This is why it's generally preferred for tasks involving URL parameter manipulation. It ensures the query string is correctly formatted and encoded, reducing the potential for errors and making the code more readable and maintainable.
+
+- NOTE: SO WHAT HAPPENNED HERE?
+  To understand how the {text} value moves through your code and results in the rendering of user data, let's break down the flow, starting from when a user inputs text into the UserSearch component, all the way to when the UserResults component displays the users fetched from the GitHub API.
+
+1. User Inputs Text
+   In the UserSearch component, there is an input field where the user can type a search term. This is where {text} originates. As the user types, the handleChange function updates the text state with the current value of the input field.
+
+2. Submitting the Form
+   When the form is submitted by clicking the "Go" button, the handleSubmit function is called. This function first checks if the text state is not empty. If it's not, it calls searchUsers(text), passing the current value of text as an argument. This is how {text} is transferred to the searchUsers function in the GithubProvider.
+
+3. Fetching User Data
+   Inside searchUsers, {text} is used to construct a query URL for the GitHub API. This function sets the loading state to true by dispatching a SET_LOADING action, then makes an asynchronous request to the GitHub API, searching for users based on the {text} value. Upon receiving the response, it parses the JSON to extract the items array, which contains user data, and dispatches a GET_USERS action along with the items as the payload.
+
+4. Updating the State
+   The dispatched action is handled by the githubReducer, which updates the users state with the payload (the fetched user data) and sets the loading state to false. This is how the global state within GithubContext gets updated with the new user data.
+
+5. Rendering User Data
+   Finally, the UserResults component, which also consumes the GithubContext, reacts to the change in the global state. If the loading state is false, it maps over the users array in the state and renders a grid of UserItem components for each user, or a message if no avatar is available. If the loading state is true, it renders a Spinner component instead.
+
+This flow enables dynamic searching and rendering of GitHub user data based on the text input by the user. The use of context and reducers helps manage and distribute the application's state efficiently, allowing for reactive updates to the UI based on user interactions and data fetches.
