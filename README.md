@@ -305,3 +305,32 @@ As seen in the examples, URLSearchParams simplifies the process significantly. T
    Finally, the UserResults component, which also consumes the GithubContext, reacts to the change in the global state. If the loading state is false, it maps over the users array in the state and renders a grid of UserItem components for each user, or a message if no avatar is available. If the loading state is true, it renders a Spinner component instead.
 
 This flow enables dynamic searching and rendering of GitHub user data based on the text input by the user. The use of context and reducers helps manage and distribute the application's state efficiently, allowing for reactive updates to the UI based on user interactions and data fetches.
+
+### ALERTS
+
+1. Set up a folder for alert inside the context folder
+
+- AlertContext.js
+- AlertReducer.js
+
+2. Setup the AlertContext
+
+import { createContext, useReducer } from "react";
+import alertReducer from "./AlertReducer";
+
+const AlertContext = createContext();
+
+export const AlertProvider = ({ children }) => {
+const initialState = null;
+const [state, dispatch] = useReducer(alertReducer, initialState);
+
+return (
+<AlertContext.Provider value={{ alert: state }}>
+{children}
+</AlertContext.Provider>
+)
+};
+
+export default AlertContext;
+
+3. Wrap the App in the Provider
