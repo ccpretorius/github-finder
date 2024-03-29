@@ -213,5 +213,14 @@ fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
 ### CLEANING UP TO SET THE SEARCH FUNCTION
 
 1. The fetchUsers function was only a placeholder for the search function. So comment this out now
-1. Also set the loading in the initial state to true - this would now render a spinner if there is not FetchUsers function
-1. So you need to
+2. Also set the loading in the initial state to true - this would now render a spinner if there is not FetchUsers function
+3. So you need to remove the useEffect with the fetchUsers function inside it and useEffect import and the fetchUsers in the Reducer =? you now will have a blank screen rendered
+
+### SETTING UP A USERSEARCH COMPONENT
+
+1. Create the UserSearch component inside your Users inside components
+2. Bring this into your Home page
+3. Add some classes
+4. Add the state for the form inputs
+5. Add the tow-way binding for value={text} and onChange={handleChange} and create the hancleChange function that sets the state with setText(e.target.value)
+6. Add the onSubmit functionality in your <form onSubmit={handleSubmit}></form> and create the handleSubmit function with basic validation
